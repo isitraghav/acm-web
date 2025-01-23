@@ -40,7 +40,6 @@ export default function PageLoading({ children }) {
     },
     config: {
       duration: 1000,
-      easing: "ease-out",
     },
   }));
   return (

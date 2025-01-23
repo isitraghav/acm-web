@@ -43,7 +43,7 @@ export default function EventTile({ event, index }) {
           opacity: 1,
           transform: `translateX(0px)`,
         },
-        delay: 500 + index * 300,
+        delay: 1000 + index * 300,
       });
       animationFrameId = requestAnimationFramePolyfill(animate);
     }
