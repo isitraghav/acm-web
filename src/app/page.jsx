@@ -21,11 +21,11 @@ const kanit = Kanit({
 export default function Home() {
   return (
     <div className="flex flex-col md:flex-row mt-3 gap-4 p-3 h-[90vh]">
-      <section className="relative glass w-full md:w-2/3 lg:w-3/4 min-h-[80vh] md:h-auto rounded-[30px]">
+      <section className="relative glass w-full md:w-2/3 lg:w-3/4 min-h-[75vh] md:h-auto rounded-[30px]">
         <Squares
           speed={0.3}
           squareSize={44}
-          direction="diagonal" // up, down, left, right, diagonal
+          direction="diagonal"
           borderColor="#2d2e30"
           hoverFillColor="#222"
           children={
@@ -47,17 +47,17 @@ export default function Home() {
                       className="text-[#7C66B9] text-4xl  md:text-6xl"
                     />
                   </div>
-                  <div
-                    className={`w-4/5 md:w-full m-auto ${jersey15.className}`}
-                  >
-                    <BlurText
-                      totalAnimationDelay={4500}
-                      text="The largest Computer Science community at BMU."
-                      delay={150}
-                      animateBy="words"
-                      direction="top"
-                      className="text-xl md:text-2xl"
-                    />
+                  <div className={`px-3 w-full m-auto ${jersey15.className}`}>
+                    <div className="flex justify-center items-center">
+                      <BlurText
+                        totalAnimationDelay={4500}
+                        text="The largest Computer Science community at BMU."
+                        delay={150}
+                        animateBy="words"
+                        direction="top"
+                        className="text-xl md:text-2xl"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
