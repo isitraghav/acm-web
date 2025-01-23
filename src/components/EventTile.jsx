@@ -1,34 +1,64 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Countdown from "./Countdown";
 import moment from "moment";
-import { useSpring, animated } from "@react-spring/web";
+import { useSpring, animated, to } from "@react-spring/web";
+import { MdArrowOutward } from "react-icons/md";
+import Link from "next/link";
 
-export default function EventTile({ event }) {
+function requestAnimationFramePolyfill(callback) {
+  return setTimeout(callback, 16);
+}
+
+export default function EventTile({ event, index }) {
   const [tileOpened, setTileOpened] = useState(false);
+  useEffect(() => {
+    if (!moment(new Date(event.dateTime)).isBefore(new Date())) {
+      setTileOpened(true);
+    }
+  }, []);
+  const expandStyle = useSpring({
+    maxHeight: tileOpened ? 500 : 44,
+    config: { tension: 150, friction: 20 },
+  });
 
-  const handleClick = () => {
-    setTileOpened(!tileOpened);
-  };
+  const fadeStyle = useSpring({
+    opacity: tileOpened ? 1 : 0,
+    transform: tileOpened ? "translateY(0px)" : "translateY(-10px)",
+    config: { duration: 300 },
+  });
 
-  const [springs, api] = useSpring(() => ({
-    from: { x: 0 },
-    to: { x: 100 },
-    delay: 5000,
+  const [rotateStyle, api] = useSpring(() => ({
+    from: {
+      opacity: 0,
+      transform: "translateX(-500px)",
+    },
   }));
+
+  useEffect(() => {
+    let animationFrameId;
+    function animate() {
+      api.start({
+        to: {
+          opacity: 1,
+          transform: `translateX(0px)`,
+        },
+        delay: 5000 + index * 100,
+      });
+      animationFrameId = requestAnimationFramePolyfill(animate);
+    }
+    animate();
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [api, index]);
 
   return (
     <animated.div
-      style={{
-        borderRadius: 8,
-        ...springs,
-      }}
+      onClick={() => setTileOpened(!tileOpened)}
+      style={rotateStyle}
     >
-      <div
-        onClick={handleClick}
-        className={`glass cursor-pointer overflow-hidden rounded-lg p-2 flex flex-col transition-[max-height] duration-500 ease-in-out ${
-          tileOpened ? "max-h-[500px]" : "max-h-[44px]"
-        }`}
+      <animated.div
+        style={expandStyle}
+        className="glass cursor-pointer overflow-hidden rounded-lg p-2 flex flex-col"
       >
         <div className="flex items-center justify-between">
           <div className="text-lg">{event.name}</div>
@@ -36,18 +66,23 @@ export default function EventTile({ event }) {
             {new Date(event.dateTime) > new Date() ? (
               <Countdown dateTime={event.dateTime} />
             ) : (
-              <>{moment(event.dateTime).format("DD, MMM")}</>
+              moment(event.dateTime).format("DD MMM")
             )}
           </div>
         </div>
-        <div
-          className={`transition-opacity duration-500 ${
-            tileOpened ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <div className="text-sm">{event.description}</div>
-        </div>
-      </div>
+        <animated.div style={fadeStyle} className="mt-2 text-sm">
+          <div>{event.description}</div>
+          <div className="mt-4 mb-2">
+            <Link
+              href={event.url}
+              className="glass flex justify-center items-center gap-2 p-2 rounded-xl"
+            >
+              <div>Go To Event</div>
+              <MdArrowOutward size={20} />
+            </Link>
+          </div>
+        </animated.div>
+      </animated.div>
     </animated.div>
   );
 }
