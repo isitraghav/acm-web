@@ -34,7 +34,7 @@ const SplitText = ({
           observer.unobserve(ref.current);
         }
       },
-      { threshold, rootMargin }
+      { threshold, rootMargin },
     );
 
     observer.observe(ref.current);
@@ -60,7 +60,7 @@ const SplitText = ({
         : animationFrom,
       delay: startDelay + i * delay,
       config: { easing },
-    }))
+    })),
   );
 
   return (

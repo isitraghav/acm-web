@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 export default function Countdown({ dateTime }) {
   const countDownDate = new Date(dateTime);
   const [countDown, setCountDown] = useState(
-    Math.floor((countDownDate.getTime() - Date.now()) / 1000)
+    Math.floor((countDownDate.getTime() - Date.now()) / 1000),
   );
 
   useEffect(() => {
@@ -27,10 +27,5 @@ export default function Countdown({ dateTime }) {
 
   const duration = moment.duration(countDown, "seconds");
 
-  return (
-    <div>
-      in {moment(dateTime).fromNow(true)}
-    </div>
-  );
+  return <div>in {moment(dateTime).fromNow(true)}</div>;
 }
-

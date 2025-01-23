@@ -6,4 +6,3 @@ export default function ROCS() {
     </div>
   );
 }
-

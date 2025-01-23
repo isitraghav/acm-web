@@ -61,7 +61,7 @@ const Squares = ({
         0,
         canvas.width / 2,
         canvas.height / 2,
-        Math.sqrt(Math.pow(canvas.width, 2) + Math.pow(canvas.height, 2)) / 2
+        Math.sqrt(Math.pow(canvas.width, 2) + Math.pow(canvas.height, 2)) / 2,
       );
       gradient.addColorStop(0, "rgba(0, 0, 0, 0.1)");
       gradient.addColorStop(1, "#121212");

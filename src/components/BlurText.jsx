@@ -54,7 +54,7 @@ const BlurText = ({
           observer.unobserve(ref.current);
         }
       },
-      { threshold, rootMargin }
+      { threshold, rootMargin },
     );
 
     observer.observe(ref.current);
@@ -78,7 +78,7 @@ const BlurText = ({
 
       delay: totalAnimationDelay + i * delay, // added total animation delay
       config: { easing },
-    }))
+    })),
   );
 
   return (
