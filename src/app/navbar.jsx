@@ -34,57 +34,27 @@ export default function Navbar() {
 
   const [openMenu, api] = useSpring(() => ({
     from: {
-      opacity: 0,
-      height: "0px",
+      height: "0vh",
     },
-    config: { duration: 2000, easing: "easeIn" },
+    config: { duration: 700 },
   }));
 
-  let animationFrameId;
   function toggleMenu() {
     if (showMenu) {
       api.start({
         to: {
-          opacity: 0,
-          height: "0px",
-        },
-        onFrame: () => {
-          cancelAnimationFrame(animationFrameId);
-          animationFrameId = requestAnimationFrame(() =>
-            api.start({
-              to: {
-                height: "0px",
-              },
-            })
-          );
+          height: "0vh",
         },
       });
     } else {
       api.start({
         to: {
-          opacity: 1,
           height: "100vh",
-        },
-        onFrame: () => {
-          cancelAnimationFrame(animationFrameId);
-          animationFrameId = requestAnimationFrame(() =>
-            api.start({
-              to: {
-                height: "100vh",
-              },
-            })
-          );
         },
       });
     }
     setShowMenu(!showMenu);
   }
-
-  useEffect(() => {
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
 
   return (
     <>
