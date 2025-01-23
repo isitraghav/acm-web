@@ -72,7 +72,7 @@ export default function Navbar() {
       <div
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}
-        className="flex gap-3 top-3 sticky z-10"
+        className="flex gap-3 pt-3 top-0 sticky z-10"
       >
         <div
           className={`z-20 pl-3 ${

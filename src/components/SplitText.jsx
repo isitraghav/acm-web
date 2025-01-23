@@ -7,8 +7,14 @@ const SplitText = ({
   className = "",
   delay = 100,
   startDelay = 0,
-  animationFrom = { opacity: 0, transform: "translate3d(0,40px,0)" },
-  animationTo = { opacity: 1, transform: "translate3d(0,0,0)" },
+  animationFrom = {
+    opacity: 0,
+    transform: "translate3d(0,40px,0)",
+  },
+  animationTo = {
+    opacity: 1,
+    transform: "translate3d(0,0,0)",
+  },
   easing = "easeOutCubic",
   threshold = 0.1,
   rootMargin = "-100px",
