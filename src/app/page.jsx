@@ -1,10 +1,10 @@
 "use client";
 import BlurText from "@/components/BlurText";
-import Countdown from "@/components/Countdown";
 import EventTile from "@/components/EventTile";
 import Squares from "@/components/Squares";
-import { Jersey_15, Kanit } from "next/font/google";
-import Image from "next/image";
+import { Jersey_15 } from "next/font/google";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const jersey15 = Jersey_15({
   variable: "--font-jersey-15",
@@ -12,15 +12,10 @@ const jersey15 = Jersey_15({
   weight: ["400"],
 });
 
-const kanit = Kanit({
-  variable: "--font-kanit",
-  subsets: ["latin"],
-  weight: ["400"],
-});
-
 export default function Home() {
+  const [delayInAnimation, setDelayInAnimation] = useState(0);
   return (
-    <div className="flex flex-col md:flex-row mt-3 gap-4 p-3 h-[90vh]">
+    <div className="flex flex-col md:flex-row gap-4 p-3 h-[90vh]">
       <section className="relative glass w-full md:w-2/3 lg:w-3/4 min-h-[75vh] md:h-auto rounded-[30px]">
         <Squares
           speed={0.3}
@@ -39,7 +34,7 @@ export default function Home() {
                     // }}
                   >
                     <BlurText
-                      totalAnimationDelay={4000}
+                      totalAnimationDelay={delayInAnimation}
                       text="code the future."
                       delay={150}
                       animateBy="words"
@@ -50,9 +45,9 @@ export default function Home() {
                   <div className={`px-3 w-full m-auto ${jersey15.className}`}>
                     <div className="flex justify-center items-center">
                       <BlurText
-                        totalAnimationDelay={4500}
+                        totalAnimationDelay={delayInAnimation + 100}
                         text="The largest Computer Science community at BMU."
-                        delay={150}
+                        delay={110}
                         animateBy="words"
                         direction="top"
                         className="text-xl md:text-2xl"
@@ -69,9 +64,9 @@ export default function Home() {
         <section className="flex flex-col glass h-2/3 rounded-[30px] p-4">
           <h1>
             <BlurText
-              totalAnimationDelay={5000}
+              totalAnimationDelay={delayInAnimation + 100}
               text="Events"
-              delay={150}
+              delay={110}
               animateBy="letters"
               direction="top"
               className="text-2xl"
@@ -154,7 +149,7 @@ export default function Home() {
         <section className="flex glass h-1/3 rounded-[30px] p-2">
           <h1>
             <BlurText
-              totalAnimationDelay={4000}
+              totalAnimationDelay={delayInAnimation + 100}
               text="Isn't this so cool?!"
               delay={150}
               animateBy="words"

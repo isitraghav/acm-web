@@ -66,20 +66,16 @@ const BlurText = ({
     elements.length,
     elements.map((_, i) => ({
       from: animationFrom || defaultFrom,
-      to: inView
-        ? async (next) => {
-            for (const step of animationTo || defaultTo) {
-              await next(step);
-            }
-            animatedCount.current += 1;
-            if (
-              animatedCount.current === elements.length &&
-              onAnimationComplete
-            ) {
-              onAnimationComplete();
-            }
-          }
-        : animationFrom || defaultFrom,
+      to: async (next) => {
+        for (const step of animationTo || defaultTo) {
+          await next(step);
+        }
+        animatedCount.current += 1;
+        if (animatedCount.current === elements.length && onAnimationComplete) {
+          onAnimationComplete();
+        }
+      },
+
       delay: totalAnimationDelay + i * delay, // added total animation delay
       config: { easing },
     }))

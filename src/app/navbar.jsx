@@ -140,15 +140,27 @@ export default function Navbar() {
           </button>
         </div>
         <div className="flex flex-col gap-3 justify-center items-center text-2xl">
-          {["/rocs", "/team", "/events", "/duality", "/gallery"].map((link) => (
+          {[
+            "/rocs",
+            "/team",
+            "/events",
+            "/duality",
+            "/gallery",
+            "https://discord.com/invite/7XNFKPG5C4",
+          ].map((link, index) => (
             <div key={link}>
               <Link
                 href={link}
                 className="cursor-pointer flex items-center gap-4"
+                target={index === 5 ? "_blank" : "_self"}
               >
                 <ShinyText
                   evershining={true}
-                  text={link.toUpperCase().replace("/", "")}
+                  text={
+                    index === 5
+                      ? "COMMUNITY"
+                      : link.toUpperCase().replace("/", "")
+                  }
                 />
                 {/* <MdArrowOutward className="text-2xl" /> */}
               </Link>
