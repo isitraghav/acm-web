@@ -21,7 +21,7 @@ const kanit = Kanit({
 export default function Home() {
   return (
     <div className="flex flex-col md:flex-row mt-3 gap-4 p-3 h-[90vh]">
-      <section className="relative glass w-full md:w-2/3 lg:w-3/4 h-[80vh] md:h-auto rounded-[30px]">
+      <section className="relative glass w-full md:w-2/3 lg:w-3/4 min-h-[80vh] md:h-auto rounded-[30px]">
         <Squares
           speed={0.3}
           squareSize={44}
