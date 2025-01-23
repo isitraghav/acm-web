@@ -77,7 +77,7 @@ export default function Home() {
               {
                 name: "ROCS",
                 dateTime: "February 1, 2025 11:00 PM",
-                url: "/event/rocs",
+                url: "/rocs",
                 description:
                   "Get ready for university's first-ever Research Event with speakers and PhD holders showcasing their research. Join us for cool insights.",
               },

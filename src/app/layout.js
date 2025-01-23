@@ -29,7 +29,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Next13ProgressBar height="4px" color="#7c66b9" showOnShallow />
+        <Next13ProgressBar
+          height="4px"
+          color="#7c66b9"
+          showOnShallow
+          options={{ showSpinner: false }}
+        />
         <Navbar />
         <div className="mt-2">
           <PageLoading children={children} />

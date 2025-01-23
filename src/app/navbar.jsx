@@ -3,6 +3,7 @@
 import ShinyText from "@/components/ShinyText";
 import { useSpring, animated } from "@react-spring/web";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { MdArrowOutward } from "react-icons/md";
 
@@ -31,6 +32,16 @@ export default function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const pathname = usePathname();
+  useEffect(() => {
+    api.start({
+      to: {
+        height: "0vh",
+      },
+    });
+    setShowMenu(false);
+  }, [pathname]);
 
   const [openMenu, api] = useSpring(() => ({
     from: {

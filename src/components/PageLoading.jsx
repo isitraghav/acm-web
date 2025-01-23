@@ -1,5 +1,5 @@
 "use client";
-import { Italiana, Montserrat } from "next/font/google";
+import { Italiana, Jersey_10, Montserrat, Outfit } from "next/font/google";
 import SplitText from "./SplitText";
 import { useEffect, useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
@@ -9,8 +9,8 @@ const monseratt = Montserrat({
   subsets: ["latin"],
 });
 
-const italiana = Italiana({
-  variable: "--font-italiana",
+const outfit = Jersey_10({
+  variable: "--font-outfit",
   subsets: ["latin"],
   weight: "400",
 });
@@ -69,7 +69,7 @@ export default function PageLoading({ children }) {
               <SplitText
                 startDelay={1300}
                 text="student chapter"
-                className={`${italiana.className} uppercase w-full text-center tracking-wider`}
+                className={`${outfit.className} uppercase w-full text-center tracking-wider`}
                 delay={100}
                 animationFrom={{
                   opacity: 0,
