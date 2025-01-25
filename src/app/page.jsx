@@ -186,6 +186,7 @@ export default function Home() {
                 >
                   <Image
                     src={imgs[i]}
+                    priority
                     alt="logo"
                     width={500}
                     height={300}
