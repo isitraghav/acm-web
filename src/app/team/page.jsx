@@ -1,14 +1,15 @@
 "use client";
 import TeamCard from "@/components/TeamCard";
 import { Jersey_15 } from "next/font/google";
-import Image from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const Jersey15 = Jersey_15({
   variable: "--font-jersey-15",
   subsets: ["latin"],
   weight: ["400"],
 });
+
 export default function Team() {
   const team = {
     Executive: [
@@ -120,15 +121,12 @@ export default function Team() {
   const [active, setActive] = useState("Executive");
 
   return (
-    <div className="flex flex-col md:flex-row gap-3 p-3">
-      <div className="flex flex-col glass w-full md:w-1/2 lg:w-1/3 min-h-[83vh] rounded-[30px] ">
-        <div
-          className={`text-4xl text-[#7965b6] p-3 pb-0 pl-4 ${Jersey15.className}`}
-        >
-          Mentors
-        </div>
-        <div className="flex ">
-          {[
+    <div className="flex flex-col md:flex-row gap-4 p-4">
+      {/* Sidebar Section */}
+      <div className="flex flex-col glass w-full md:w-1/2 lg:w-1/3 min-h-[83vh] rounded-[30px] p-4">
+        <Section
+          title="Mentors"
+          members={[
             {
               name: "Dr. Devanjali Relan",
               image: "/images/TeamNew/DevanjaliMaam.webp",
@@ -139,20 +137,11 @@ export default function Team() {
               image: "/images/TeamNew/NishthaMaam.webp",
               position: "Mentor",
             },
-          ].map((item, index) => (
-            <div key={index} className=" p-1 md:p-2 w-full h-min">
-              <TeamCard item={item} />
-            </div>
-          ))}
-        </div>
-        <div className="h-full"></div>
-        <div
-          className={`text-4xl text-[#7965b6] p-3 pb-0 pl-4 ${Jersey15.className}`}
-        >
-          President and Vice President
-        </div>
-        <div className="flex pb-1">
-          {[
+          ]}
+        />
+        <Section
+          title="President and Vice President"
+          members={[
             {
               name: "Aditya Rastogi",
               image: "/images/TeamNew/Aditya.webp",
@@ -163,47 +152,83 @@ export default function Team() {
               image: "/images/TeamNew/Shrey.webp",
               position: "Vice President",
             },
-          ].map((item, index) => (
-            <div key={index} className=" p-1 md:p-2 w-full h-min">
-              <TeamCard item={item} />
-            </div>
-          ))}
-        </div>
+          ]}
+        />
       </div>
 
-      <div className="flex flex-col glass w-full md:w-1/2 lg:w-2/3  min-h-[83vh] rounded-[30px] ">
-        <div className="flex flex-wrap gap-3 justify-center mt-2">
-          {Object.keys(team).map((key, index) => (
-            <div key={index} className="">
-              <button
-                onClick={() => {
-                  setActive(key);
-                }}
-                style={
-                  active === key
-                    ? { color: "white", background: "#5c4c8a" }
-                    : {}
-                }
-                className={`text-xl ${Jersey15.className} glass rounded-[20px] px-2`}
-              >
+      {/* Team Section */}
+      <div className="flex flex-col glass w-full md:w-1/2 lg:w-2/3 min-h-[83vh] rounded-[30px] p-4">
+        {/* Animated Pill Buttons */}
+        <motion.div layout className="flex flex-wrap gap-3 justify-center mt-2">
+          {Object.keys(team).map((key) => (
+            <button
+              key={key}
+              onClick={() => setActive(key)}
+              className={`relative px-4 py-1 text-sm md:text-xl font-medium transition-all rounded-full ${
+                active === key ? "bg-[#5c4c8a] text-white" : "glass"
+              }`}
+            >
+              {active === key && (
+                <motion.div
+                  layoutId="pill"
+                  className="absolute inset-0 bg-[#5c4c8a] rounded-full"
+                  transition={{ type: "spring", stiffness: 900, damping: 100 }}
+                />
+              )}
+              <span className={`relative z-10 ${Jersey15.className}`}>
                 {key}
-              </button>
-            </div>
+              </span>
+            </button>
           ))}
-          <div className="flex flex-wrap items-center justify-center">
-            {team[active].map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className="w-1/2 md:w-1/3 lg:w-1/4 h-min p-1 md:p-2"
-                >
-                  <TeamCard item={item} />
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        </motion.div>
+
+        {/* Team Members with Animation */}
+        <motion.div
+          key={active}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="flex flex-wrap items-center justify-center mt-4"
+        >
+          {team[active].map((item, index) => (
+            <motion.div
+              key={index}
+              className="w-1/2 md:w-1/3 lg:w-1/4 h-min p-2"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: index * 0.1 }}
+            >
+              <TeamCard item={item} />
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </div>
+  );
+}
+
+/* Section Component (Reusable) */
+function Section({ title, members }) {
+  return (
+    <>
+      <div
+        className={`text-4xl ${Jersey15.className} text-[#7965b6] p-3 pb-0 pl-4 font-jersey-15`}
+      >
+        {title}
+      </div>
+      <div className="flex flex-wrap pb-1">
+        {members.map((item, index) => (
+          <motion.div
+            key={index}
+            className="w-full md:w-1/2 p-1 md:p-2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: index * 0.1 }}
+          >
+            <TeamCard item={item} />
+          </motion.div>
+        ))}
+      </div>
+    </>
   );
 }

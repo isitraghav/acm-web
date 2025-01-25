@@ -19,8 +19,9 @@ const Squares = ({
   // Resize the canvas and calculate the grid size.
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current;
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+    if (!canvas) return;
+    canvas.width = canvas.offsetWidth || canvas.clientWidth;
+    canvas.height = canvas.offsetHeight || canvas.clientHeight;
     numSquaresX.current = Math.ceil(canvas.width / squareSize) + 1;
     numSquaresY.current = Math.ceil(canvas.height / squareSize) + 1;
   }, [squareSize]);
