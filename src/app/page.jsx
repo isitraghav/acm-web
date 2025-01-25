@@ -205,7 +205,7 @@ export default function Home() {
               .fill(0)
               .map((_, i) => (
                 <span key={i} className="mx-2 text-2xl">
-                  no bluff
+                  not your average club
                 </span>
               ))}
           </div>
