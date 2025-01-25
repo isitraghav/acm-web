@@ -46,18 +46,16 @@ const SplitText = ({
     letters.length,
     letters.map((_, i) => ({
       from: animationFrom,
-      to: inView
-        ? async (next) => {
-            await next(animationTo);
-            animatedCount.current += 1;
-            if (
-              animatedCount.current === letters.length &&
-              onLetterAnimationComplete
-            ) {
-              onLetterAnimationComplete();
-            }
-          }
-        : animationFrom,
+      to: async (next) => {
+        await next(animationTo);
+        animatedCount.current += 1;
+        if (
+          animatedCount.current === letters.length &&
+          onLetterAnimationComplete
+        ) {
+          onLetterAnimationComplete();
+        }
+      },
       delay: startDelay + i * delay,
       config: { easing },
     })),

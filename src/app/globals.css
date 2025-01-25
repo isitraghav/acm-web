@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  gap: 1rem; /* Adjust spacing */
+  min-width: 200%; /* Ensures full scrolling effect */
+  animation: marquee 30s linear infinite;
+}
+
 html,
 body {
   background-color: #060606;
