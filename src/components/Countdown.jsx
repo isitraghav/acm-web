@@ -25,7 +25,5 @@ export default function Countdown({ dateTime }) {
     return () => clearInterval(interval);
   }, [countDownDate]);
 
-  const duration = moment.duration(countDown, "seconds");
-
   return <div>in {moment(dateTime).fromNow(true)}</div>;
 }

@@ -3,7 +3,7 @@ import { Italiana, Jersey_10, Montserrat, Outfit } from "next/font/google";
 import SplitText from "./SplitText";
 import { useEffect, useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
-
+import LogoAnimation from "@/components/LogoAnimation";
 const monseratt = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
@@ -50,7 +50,8 @@ export default function PageLoading({ children }) {
           className={`fixed h-full inset-0 z-50 transition-all duration-1000 ease-out flex items-center justify-center bg-[#060606]`}
         >
           <div className="text-white">
-            <div className="text-5xl md:text-6xl text-center">
+            <div className="text-5xl flex gap-2 items-center md:text-6xl text-center">
+              <LogoAnimation />
               <SplitText
                 text="ACM BMU"
                 className={`${monseratt.className} text-center tracking-tighter`}

@@ -1,7 +1,22 @@
+"use client";
+import { getFoldersInPublicFolder } from "./server";
+import { useEffect, useState } from "react";
+
 export default function Gallery() {
-  return (
-    <div className="h-screen flex flex-col items-center justify-center">
-      <h1 className="text-6xl font-bold">Gallery</h1>
-    </div>
-  );
+  const [folders, setFolders] = useState([]);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    getFoldersInPublicFolder().then((files) => {
+      console.log(files);
+      const initialFolders = Object.keys(files).map((key) => ({
+        key,
+        files: files[key],
+      }));
+
+      setFolders(initialFolders);
+    });
+  }, []);
+
+  return <>gallery</>;
 }

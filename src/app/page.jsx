@@ -3,11 +3,10 @@ import BlurText from "@/components/BlurText";
 import EventTile from "@/components/EventTile";
 import LogoWall from "@/components/LogoWall";
 import Squares from "@/components/Squares";
-import { animated, useSpring } from "@react-spring/web";
+import { animated, useSpring, useTransition } from "@react-spring/web";
 import { Jersey_10, Jersey_15 } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const jersey15 = Jersey_15({
@@ -29,36 +28,24 @@ export default function Home() {
     "/images/Gallery/Web/w10.webp",
     "/images/Gallery/Web/w36.webp",
     "/images/Gallery/Web/w37.webp",
+    "/images/Gallery/Web/w23.webp",
   ];
-  const [animatedGallery, animatedGalleryApi] = useSpring(() => ({
-    from: { opacity: 1, filter: "blur(0px)" },
-  }));
+  const [index, setIndex] = useState(0);
+
+  const transitions = useTransition(index, {
+    from: { opacity: 0, filter: "blur(10px)" },
+    enter: { opacity: 1, filter: "blur(0px)" },
+    leave: { opacity: 0, filter: "blur(10px)" },
+    config: { duration: 500 },
+  });
 
   useEffect(() => {
-    let index = 0;
     const intervalId = setInterval(() => {
-      setFeaturedGallery(imgs[index]);
-      index = (index + 1) % imgs.length;
-      animatedGalleryApi.start({
-        to: { opacity: 1, filter: "blur(0px)" },
-        config: { duration: 300 },
-      });
-
-      setTimeout(() => {
-        // Clean up the interval on component unmount
-        animatedGalleryApi.start({
-          to: { opacity: 0, filter: "blur(10px)" },
-          config: { duration: 300 },
-        });
-      }, 2700);
+      setIndex((prevIndex) => (prevIndex + 1) % imgs.length);
     }, 3000);
-
     return () => clearInterval(intervalId);
-  }, [imgs]);
-  const [featuredGallery, setFeaturedGallery] = useState(
-    "images/Gallery/Web/w6.webp",
-  );
-  const [delayInAnimation, setDelayInAnimation] = useState(0);
+  }, []);
+
   return (
     <div className="">
       <div className="flex flex-col md:flex-row gap-4 p-3">
@@ -75,18 +62,16 @@ export default function Home() {
                   <div className="flex flex-col gap-3 text-center">
                     <div className={`${jersey15.className} m-auto`}>
                       <BlurText
-                        totalAnimationDelay={delayInAnimation}
                         text="code the future."
                         delay={150}
                         animateBy="words"
                         direction="top"
-                        className="text-[#7C66B9] text-4xl  md:text-6xl"
+                        className="text-[#7C66B9] text-4xl md:text-6xl"
                       />
                     </div>
                     <div className={`px-3 w-full m-auto ${jersey15.className}`}>
                       <div className="flex justify-center items-center">
                         <BlurText
-                          totalAnimationDelay={delayInAnimation + 100}
                           text="The largest Computer Science community at BMU."
                           delay={110}
                           animateBy="words"
@@ -105,7 +90,6 @@ export default function Home() {
           <section className="flex flex-col glass h-[53vh] rounded-[30px] p-4">
             <h1>
               <BlurText
-                totalAnimationDelay={delayInAnimation + 100}
                 text="Events"
                 delay={110}
                 animateBy="letters"
@@ -187,39 +171,41 @@ export default function Home() {
               })}
             </div>
           </section>
-          <section className="flex glass h-1/3 rounded-[30px]">
+          <section className="flex glass h-1/3 rounded-[30px] relative overflow-hidden">
             <Link
               href="/gallery"
-              className="w-full p-1 object-cover rounded-[25px]"
+              className="w-full h-full object-cover rounded-[25px]"
             >
-              <animated.img
-                src={featuredGallery}
-                style={animatedGallery}
-                alt="logo"
-                className="h-full w-full object-cover rounded-[25px]"
-              />
+              {transitions((style, i) => (
+                <animated.div
+                  key={i}
+                  src={imgs[i]}
+                  style={style}
+                  alt="logo"
+                  className="absolute inset-0 h-full w-full object-cover rounded-[25px]"
+                >
+                  <Image
+                    src={imgs[i]}
+                    alt="logo"
+                    width={500}
+                    height={300}
+                    className="absolute inset-0 h-full w-full object-cover rounded-[25px]"
+                  />
+                </animated.div>
+              ))}
             </Link>
           </section>
         </div>
       </div>
-
       <section className="flex flex-col items-center justify-center"></section>
-
       <div className="flex flex-col items-center justify-center overflow-hidden bg-[#4d3f77] rounded-xl m-3">
         <div className="relative w-full overflow-hidden whitespace-nowrap">
           <div className={`flex animate-marquee ${jersey10.className}`}>
-            {Array(20)
+            {Array(50)
               .fill(0)
               .map((_, i) => (
                 <span key={i} className="mx-2 text-2xl">
-                  made with love at{" "}
-                  <Link
-                    href="https://bmu.edu.in"
-                    referrerPolicy="no-referrer"
-                    target="_blank"
-                  >
-                    bmu
-                  </Link>
+                  no bluff
                 </span>
               ))}
           </div>

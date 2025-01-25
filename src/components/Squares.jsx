@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 
 const Squares = ({
   children,
@@ -11,22 +11,25 @@ const Squares = ({
 }) => {
   const canvasRef = useRef(null);
   const requestRef = useRef(null);
-  const numSquaresX = useRef();
-  const numSquaresY = useRef();
+  const numSquaresX = useRef(0);
+  const numSquaresY = useRef(0);
   const gridOffset = useRef({ x: 0, y: 0 });
-  const [hoveredSquare, setHoveredSquare] = useState(null);
+  const hoveredSquareRef = useRef(null);
+
+  // Resize the canvas and calculate the grid size.
+  const resizeCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    numSquaresX.current = Math.ceil(canvas.width / squareSize) + 1;
+    numSquaresY.current = Math.ceil(canvas.height / squareSize) + 1;
+  }, [squareSize]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    const resizeCanvas = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      numSquaresX.current = Math.ceil(canvas.width / squareSize) + 1;
-      numSquaresY.current = Math.ceil(canvas.height / squareSize) + 1;
-    };
-
+    // Resize canvas on load and window resize
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
@@ -42,9 +45,10 @@ const Squares = ({
           const squareY = y - (gridOffset.current.y % squareSize);
 
           if (
-            hoveredSquare &&
-            Math.floor((x - startX) / squareSize) === hoveredSquare.x &&
-            Math.floor((y - startY) / squareSize) === hoveredSquare.y
+            hoveredSquareRef.current &&
+            Math.floor((x - startX) / squareSize) ===
+              hoveredSquareRef.current.x &&
+            Math.floor((y - startY) / squareSize) === hoveredSquareRef.current.y
           ) {
             ctx.fillStyle = hoverFillColor;
             ctx.fillRect(squareX, squareY, squareSize, squareSize);
@@ -70,6 +74,7 @@ const Squares = ({
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     };
 
+    // Update grid offset based on the direction.
     const updateAnimation = () => {
       const effectiveSpeed = Math.max(speed, 0.1);
       switch (direction) {
@@ -105,23 +110,27 @@ const Squares = ({
 
     requestRef.current = requestAnimationFrame(updateAnimation);
 
+    // Cleanup animation frame on component unmount
     return () => {
       cancelAnimationFrame(requestRef.current);
     };
-  }, [
-    direction,
-    speed,
-    borderColor,
-    hoverFillColor,
-    hoveredSquare,
-    squareSize,
-  ]);
+  }, [direction, speed, borderColor, hoverFillColor, squareSize, resizeCanvas]);
 
   return (
     <>
       <canvas
         ref={canvasRef}
         className="w-full rounded-[30px] h-full border-none block"
+        onMouseMove={(e) => {
+          const canvas = canvasRef.current;
+          const rect = canvas.getBoundingClientRect();
+          const x = Math.floor((e.clientX - rect.left) / squareSize);
+          const y = Math.floor((e.clientY - rect.top) / squareSize);
+          hoveredSquareRef.current = { x, y };
+        }}
+        onMouseOut={() => {
+          hoveredSquareRef.current = null;
+        }}
       ></canvas>
       {children}
     </>
