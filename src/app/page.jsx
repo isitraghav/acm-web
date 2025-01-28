@@ -199,7 +199,7 @@ export default function Home() {
         </div>
       </div>
       <section className="flex flex-col items-center justify-center"></section>
-      <div className="flex flex-col items-center justify-center overflow-hidden bg-[#4d3f77] rounded-xl m-3">
+      <div className="flex flex-col items-center justify-center overflow-hidden bg-[#4d3f77] hover:text-[#4d3f77] hover:bg-[#060606] transition-all duration-500 rounded-xl m-3">
         <div className="relative w-full overflow-hidden whitespace-nowrap">
           <div className={`flex animate-marquee ${jersey10.className}`}>
             {Array(50)

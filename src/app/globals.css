@@ -32,8 +32,6 @@ body {
 }
 
 .navigation {
-  font-family: Matter, sans-serif;
-  letter-spacing: -0.05em;
   box-sizing: border-box;
   position: relative;
   height: 58px;
@@ -69,10 +67,6 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   color-scheme: dark;
-  font-feature-settings: "kern";
-  color: var(--chakra-colors-chakra-body-text);
-  line-height: var(--chakra-lineHeights-base);
-  font-family: "DM Sans", sans-serif;
   box-sizing: border-box;
   overflow-wrap: break-word;
   cursor: pointer;

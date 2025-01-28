@@ -21,25 +21,21 @@ export default function PageLoading({ children }) {
     const timer = setTimeout(() => {
       api.start({
         to: {
-          opacity: 0,
-          height: "0vh",
+          transform: "translate3d(0,69vh,0)",
         },
       });
-    }, 3700);
+    }, 3000);
     setTimeout(() => {
       setShow(false);
-    }, 4700);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, []);
 
   const [spring, api] = useSpring(() => ({
     from: {
+      transform: "translate3d(0,0,0)",
       opacity: 1,
-      height: "100vh",
-    },
-    config: {
-      duration: 1000,
     },
   }));
   return (

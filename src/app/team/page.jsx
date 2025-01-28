@@ -204,7 +204,7 @@ export default function Team() {
             },
             {
               name: "Shrey Jaiswal",
-              image: "/images/TeamNew/Shrey.webp",
+              image: "/images/TeamNew/shrey.webp",
               position: "Vice President",
             },
           ]}
@@ -238,25 +238,26 @@ export default function Team() {
         </motion.div>
 
         {/* Team Members with Animation */}
-        <motion.div
-          key={active}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="flex flex-wrap items-center justify-center mt-4"
-        >
-          {team[active].map((item, index) => (
-            <motion.div
-              key={index}
-              className="w-1/2 md:w-1/3 lg:w-1/4 h-min p-2"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-            >
-              <TeamCard item={item} />
-            </motion.div>
-          ))}
-        </motion.div>
+        <div className="w-9/12 mx-auto">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4 justify-center"
+          >
+            {team[active].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+              >
+                <TeamCard item={item} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </div>
   );
