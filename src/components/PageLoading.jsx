@@ -29,6 +29,32 @@ export default function PageLoading({ children }) {
       setShow(false);
     }, 4000);
 
+    console.log(`                                                  
+                                                  
+                                                  
+                                                  
+                        ..                        
+                       #@@#                       
+                      =@@@@+                      
+                    =%#:#%.*@+                    
+                  =%#:  #%  .*@=                  
+                =%#:    #%    .*@=                
+              =%#:      #%      .*@=              
+          :=+%#:        #%        .*@+=:          
+         :@@@@%%%%%%%%%.#% @@@@@@@@@@@@@:         
+          -+*@+         #%           =+-          
+             .*@+       #%                        
+               .*@+     #%                        
+                 .*@+   #%                        
+                   .*@+ #%                        
+                     .*@@@=                       
+                       %@@%                       
+                        ..                        
+                                                  
+                WELCOME TO ACM BMU!!                          
+                                                  
+                                                  
+ `);
     return () => clearTimeout(timer);
   }, []);
 

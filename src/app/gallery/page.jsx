@@ -18,5 +18,10 @@ export default function Gallery() {
     });
   }, []);
 
-  return <>gallery</>;
+  return (
+    <div>
+      <h1>Gallery</h1>
+      <div></div>
+    </div>
+  );
 }

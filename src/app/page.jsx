@@ -2,12 +2,14 @@
 import BlurText from "@/components/BlurText";
 import EventTile from "@/components/EventTile";
 import LogoWall from "@/components/LogoWall";
+import SpotlightCard from "@/components/SpotlightCard";
 import Squares from "@/components/Squares";
 import { animated, useSpring, useTransition } from "@react-spring/web";
 import { Jersey_10, Jersey_15 } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { MdArrowOutward } from "react-icons/md";
 
 const jersey15 = Jersey_15({
   variable: "--font-jersey-15",
@@ -45,6 +47,57 @@ export default function Home() {
     }, 3000);
     return () => clearInterval(intervalId);
   }, []);
+
+  const blogPosts = [
+    {
+      id: 1,
+      title: " From Origins to Epic Collaborations",
+      author: "Shrey Jaiswal",
+      date: "2024-10-07",
+      excerpt:
+        "Explore the vibrant world of open source, where collaboration fuels innovation and community drives growth. Discover the origins of this movement and how tools like Git and GitHub revolutionize the way developers work together",
+      readTime: "4 min read",
+      tags: ["Git", "Github", "Hacktoberfest", "Open-Source", "Linux"],
+      category: "Open Source",
+      link: "https://medium.com/@acm_63296/your-complete-guide-to-open-source-from-origins-to-epic-collaborations-beecccf9c2bf",
+    },
+    {
+      id: 2,
+      title: " Zero Trust Security: The Future of Cyber Defense",
+      author: "Kavya Goswami",
+      date: "2025-1-22",
+      excerpt:
+        "Zero Trust Security, introduced by John Kindervag in 2010, ensures continuous verification of users, limited access via micro-segmentation, and automated threat responses. Vital for industries like healthcare and government, it’s essential in today’s evolving cybersecurity landscape.",
+      readTime: "3 min read",
+      tags: [
+        "CyberSecurity",
+        "DataProtection",
+        "NetworkSecurity",
+        "ContinuousAuthentication",
+        "ThreatDetection ",
+      ],
+      category: "Cyber Defense",
+      link: "https://medium.com/@acm_63296/the-key-to-keeping-your-data-truly-safe-unlocking-the-zero-trust-security-model-d2fdecc5b2ee",
+    },
+    {
+      id: 3,
+      title: " How UX Design Drives Engagement and Success",
+      author: "Purvanshu",
+      date: "2025-1-29",
+      excerpt:
+        "UX design goes beyond interfaces, focusing on user perception, motivation, and minimizing cognitive load. By leveraging principles like visual hierarchy, gamification, and simplicity, designers create engaging, intuitive experiences that drive satisfaction, retention, and profitability.",
+      readTime: "4 min read",
+      tags: [
+        "UX Design",
+        "User Engagement",
+        "Cognitive Load",
+        "Gamification",
+        "Human-Centered Design ",
+      ],
+      category: "UX/UI Design",
+      link: "https://medium.com/@acm_63296/why-ux-design-is-all-about-understanding-the-human-mind-7a598898629f",
+    },
+  ];
 
   return (
     <div className="">
@@ -212,6 +265,37 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <section>
+        <div className="flex flex-col justify-center px-4 pt-3">
+          <div className="text-4xl font-bold p-3 pb-4">Blog</div>
+          <div className="flex flex-wrap md:flex-nowrap gap-3">
+            {blogPosts.map((post, index) => (
+              <div key={index} className="mb-4">
+                <SpotlightCard spotlightColor="#4d3f77">
+                  <h1
+                    className={`text-2xl ${jersey15.className} font-bold mb-2`}
+                  >
+                    {post.title}
+                  </h1>
+                  <p className="text-sm mb-2 line-clamp-4">{post.excerpt}</p>
+                  <div className="mt-4 mb-2">
+                    <Link
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={post.link}
+                      className="glass flex justify-center items-center gap-2 p-2 rounded-xl"
+                    >
+                      <div className="pl-3">Read</div>
+                      <MdArrowOutward size={20} />
+                    </Link>
+                  </div>
+                </SpotlightCard>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

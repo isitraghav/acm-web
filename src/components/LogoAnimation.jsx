@@ -2,7 +2,11 @@
 
 import { motion } from "framer-motion";
 
-export default function ComplexSVGAnimation({ time = 2 }) {
+export default function ComplexSVGAnimation({
+  time = 2,
+  height = 50,
+  color = "rgb(124, 102, 185)",
+}) {
   const totalDuration = time;
   const pathCount = 10;
   const pathDuration = totalDuration / pathCount;
@@ -38,8 +42,8 @@ export default function ComplexSVGAnimation({ time = 2 }) {
   };
   return (
     <motion.svg
-      width="50"
-      height="50"
+      width={height}
+      height={height}
       viewBox="0 0 481 481"
       xmlns="http://www.w3.org/2000/svg"
       initial="hidden"
@@ -63,8 +67,8 @@ export default function ComplexSVGAnimation({ time = 2 }) {
             d={d}
             variants={reveal}
             custom={i}
-            stroke="rgb(124, 102, 185)"
-            fill="rgb(124, 102, 185)"
+            stroke={color}
+            fill={color}
             fillOpacity={0} // Ensures smooth reveal
             strokeLinecap="round"
           />

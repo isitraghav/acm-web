@@ -5,6 +5,7 @@ import { useSpring, animated } from "@react-spring/web";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { FaArrowLeft } from "react-icons/fa";
 import { MdArrowOutward } from "react-icons/md";
 
 export default function Navbar() {
@@ -84,11 +85,17 @@ export default function Navbar() {
             className="navigation acm_logo aspect-square grid place-items-center"
           >
             <Link href="/" className="cursor-pointer">
-              <img
-                src="/acm-logo.png"
-                className="w-10 h-10 object-cover aspect-square"
-                alt=""
-              />
+              {pathname === "/" ? (
+                <img
+                  src="/acm-logo.png"
+                  className="w-10 h-10 object-cover aspect-square"
+                  alt=""
+                />
+              ) : (
+                <>
+                  <FaArrowLeft color="#bbb" className="w-6 h-6" />
+                </>
+              )}
             </Link>
           </nav>
         </div>
@@ -116,12 +123,16 @@ export default function Navbar() {
           </nav>
         </div>
         <div className="m-auto hidden md:block mr-10">
-          <Link
-            href="https://discord.com/invite/7XNFKPG5C4"
-            target="_blank"
-            className="shiny-button"
-          >
-            <ShinyText evershining={true} text="COMMUNITY" />
+          <Link href="/member" className="shiny-button">
+            <ShinyText
+              evershining={true}
+              text={
+                <div className="flex gap-2 justify-center items-center">
+                  <div>Member</div>
+                  <MdArrowOutward />
+                </div>
+              }
+            />
           </Link>
         </div>
         <div className="md:hidden ml-auto my-auto mr-3">
@@ -151,32 +162,22 @@ export default function Navbar() {
           </button>
         </div>
         <div className="flex flex-col gap-3 justify-center items-center text-2xl">
-          {[
-            "/rocs",
-            "/team",
-            "/events",
-            "/duality",
-            "/gallery",
-            "https://discord.com/invite/7XNFKPG5C4",
-          ].map((link, index) => (
-            <div key={link}>
-              <Link
-                href={link}
-                className="cursor-pointer flex items-center gap-4"
-                target={index === 5 ? "_blank" : "_self"}
-              >
-                <ShinyText
-                  evershining={true}
-                  text={
-                    index === 5
-                      ? "COMMUNITY"
-                      : link.toUpperCase().replace("/", "")
-                  }
-                />
-                {/* <MdArrowOutward className="text-2xl" /> */}
-              </Link>
-            </div>
-          ))}
+          {["/rocs", "/team", "/events", "/duality", "/gallery", "/member"].map(
+            (link, index) => (
+              <div key={link}>
+                <Link
+                  href={link}
+                  className="cursor-pointer flex items-center gap-4"
+                  target={index === 5 ? "_blank" : "_self"}
+                >
+                  <ShinyText
+                    evershining={true}
+                    text={link.toUpperCase().replace("/", "")}
+                  />
+                </Link>
+              </div>
+            ),
+          )}
         </div>
       </animated.div>
     </>
