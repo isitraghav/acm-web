@@ -229,6 +229,9 @@ class Media {
         img.naturalHeight,
       ];
     };
+    img.onclick = () => {
+      console.log("clicked");
+    };
   }
   createMesh() {
     this.plane = new Mesh(this.gl, {
@@ -483,7 +486,7 @@ export default function CircularGallery({
   bend = 3,
   textColor = "#ffffff",
   borderRadius = 0.05,
-  font = "bold 30px DM Sans",
+  font = "inherit",
 }) {
   const containerRef = useRef(null);
   useEffect(() => {
@@ -497,7 +500,7 @@ export default function CircularGallery({
     return () => {
       app.destroy();
     };
-  }, [items, bend, textColor, borderRadius, font]);
+  }, []);
   return (
     <div
       className="w-full h-full overflow-hidden cursor-grab active:cursor-grabbing"
