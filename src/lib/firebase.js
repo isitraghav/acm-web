@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   GoogleAuthProvider,
+  onAuthStateChanged,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
@@ -20,4 +21,18 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-export { auth, provider, signInWithPopup, signOut };
+import { create } from "zustand";
+
+const authStore = create((set) => ({
+  value: auth.currentUser,
+  setValue: (newValue) => set({ value: newValue }),
+}));
+
+onAuthStateChanged(auth, (user) => {
+  console.log("User Info:", user);
+  if (user) {
+    authStore.setState({ value: user });
+  }
+});
+
+export { auth, provider, signInWithPopup, signOut, authStore };

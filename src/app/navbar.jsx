@@ -168,7 +168,6 @@ export default function Navbar() {
                 <Link
                   href={link}
                   className="cursor-pointer flex items-center gap-4"
-                  target={index === 5 ? "_blank" : "_self"}
                 >
                   <ShinyText
                     evershining={true}
