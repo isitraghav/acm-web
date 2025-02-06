@@ -20,7 +20,7 @@ export default function Gallery() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div style={{ height: "100vh", width: "100vw", position: "relative" }}>
+      <div style={{ height: "85vh", width: "100vw", position: "relative" }}>
         <CircularGallery items={folders} />
       </div>
     </div>
