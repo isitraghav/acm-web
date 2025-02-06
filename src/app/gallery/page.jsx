@@ -1,4 +1,5 @@
 "use client";
+import CircularGallery from "@/components/CircularGallery";
 import { getFoldersInPublicFolder } from "./server";
 import { useEffect, useState } from "react";
 
@@ -8,20 +9,20 @@ export default function Gallery() {
 
   useEffect(() => {
     getFoldersInPublicFolder().then((files) => {
-      console.log(files);
-      const initialFolders = Object.keys(files).map((key) => ({
-        key,
-        files: files[key],
+      const initialFolders = Object.keys(files).map((folderName, index) => ({
+        image: `/images/Gallery/${folderName}/${files[folderName][0]}`,
+        text: folderName,
       }));
-
+      console.log(initialFolders);
       setFolders(initialFolders);
     });
   }, []);
 
   return (
-    <div>
-      <h1>Gallery</h1>
-      <div></div>
+    <div className="flex flex-col items-center justify-center">
+      <div style={{ height: "100vh", width: "100vw", position: "relative" }}>
+        <CircularGallery items={folders} />
+      </div>
     </div>
   );
 }

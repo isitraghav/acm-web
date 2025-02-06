@@ -12,6 +12,7 @@ const Jersey15 = Jersey_15({
 });
 
 export default function Member() {
+  console.log(authStore.getState().values);
   const [error, setError] = useState("");
 
   async function loginWithGoogle() {
@@ -38,7 +39,7 @@ export default function Member() {
     <div className="flex flex-col items-center justify-center h-[80vh]">
       {authStore ? (
         <div className="text-[#bbb] text-xs mt-4">
-          Signed in as: {authStore.getState().value.email}
+          Signed in as: {authStore?.getState()?.value?.email}
         </div>
       ) : (
         <div className="flex w-full h-full mt-8">
