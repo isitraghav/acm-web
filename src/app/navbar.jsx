@@ -68,6 +68,8 @@ export default function Navbar() {
     setShowMenu(!showMenu);
   }
 
+  const router = useRouter();
+
   return (
     <>
       <div
@@ -84,7 +86,12 @@ export default function Navbar() {
             ref={acm_logo}
             className="navigation acm_logo aspect-square grid place-items-center"
           >
-            <Link href="/" className="cursor-pointer">
+            <div
+              onClick={() => {
+                router.back();
+              }}
+              className="cursor-pointer"
+            >
               {pathname === "/" ? (
                 <img
                   src="/acm-logo.png"
@@ -96,7 +103,7 @@ export default function Navbar() {
                   <FaArrowLeft color="#bbb" className="w-6 h-6" />
                 </>
               )}
-            </Link>
+            </div>
           </nav>
         </div>
         <div className="hidden md:block w-full md:w-1/2 lg:w-1/3">
