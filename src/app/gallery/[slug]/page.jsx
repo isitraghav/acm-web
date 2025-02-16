@@ -1,23 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getContents } from "./server";
 import Masonry from "@/components/Masonry";
 
 export default function Page({ params }) {
   const [data, setData] = useState([]);
   const fetchData = async () => {
     const { slug } = await params;
-    await getContents(slug).then((res) => {
-      let alldata = [];
-      res.forEach((link, index) => {
-        alldata.push({
-          id: index,
-          image: `/images/Gallery/${slug}/${link}`,
-          height: 500,
-        });
-      });
-      setData(alldata);
-    });
+    console.log(slug);
   };
 
   useEffect(() => {
