@@ -6,7 +6,6 @@ import SpotlightCard from "@/components/SpotlightCard";
 import Squares from "@/components/Squares";
 import { animated, useSpring, useTransition } from "@react-spring/web";
 import { Jersey_10, Jersey_15 } from "next/font/google";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MdArrowOutward } from "react-icons/md";
@@ -25,13 +24,21 @@ const jersey10 = Jersey_10({
 
 export default function Home() {
   let imgs = [
-    "/images/Gallery/Web/w6.webp",
-    "/images/Gallery/Web/w7.webp",
-    "/images/Gallery/Web/w10.webp",
-    "/images/Gallery/Web/w36.webp",
-    "/images/Gallery/Web/w37.webp",
-    "/images/Gallery/Web/w23.webp",
+    "https://ucarecdn.com/ab1a0625-a3b6-4b4c-aded-83ad3c5baa17/-/preview/800x800/",
+    "https://ucarecdn.com/11542f20-beeb-4655-9edb-ee10843bcc5b/-/preview/800x800/",
+    "https://ucarecdn.com/f14d9813-23b1-42ce-bba3-590135547017/-/preview/800x800/",
+    "https://ucarecdn.com/d4954fe2-abe6-4184-8c25-e988ca3a0516/-/preview/800x800/",
+    "https://ucarecdn.com/7dcddb39-d414-4813-a69d-20b6a34c461e/-/preview/800x800/",
+    "https://ucarecdn.com/60287bff-4c6f-4dac-8931-9249e6eb7a37/-/preview/800x800/",
   ];
+
+  // Preload images
+  useEffect(() => {
+    imgs.forEach((img) => {
+      const image = new Image();
+      image.src = img;
+    });
+  }, [imgs]);
   const [index, setIndex] = useState(0);
 
   const transitions = useTransition(index, {
@@ -237,12 +244,9 @@ export default function Home() {
                   alt="logo"
                   className="absolute inset-0 h-full w-full object-cover rounded-[25px]"
                 >
-                  <Image
+                  <img
                     src={imgs[i]}
-                    priority
                     alt="logo"
-                    width={500}
-                    height={300}
                     className="absolute inset-0 h-full w-full object-cover rounded-[25px]"
                   />
                 </animated.div>
