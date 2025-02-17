@@ -33,14 +33,19 @@ export default function Member() {
     }
   }
 
-  console.log(authStore);
-
   return (
     <div className="flex flex-col items-center justify-center h-[80vh]">
-      {authStore ? (
-        <div className="text-[#bbb] text-xs mt-4">
-          Signed in as: {authStore?.getState()?.value?.email}
-        </div>
+      {authStore.getState().value ? (
+        <>
+          <div className="flex w-full h-full mt-8">
+            <div className="w-full md:w-1/3 lg:w-1/4">
+              <div className="flex flex-col items-center justify-center h-full">
+                ok
+              </div>
+            </div>
+            <div className="hidden md:block md:w-2/3 lg:w-3/4 bg-[#0f0f0f] h-full"></div>
+          </div>
+        </>
       ) : (
         <div className="flex w-full h-full mt-8">
           <div className="w-full md:w-1/3 lg:w-1/4">

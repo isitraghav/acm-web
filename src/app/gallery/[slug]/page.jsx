@@ -6,7 +6,19 @@ export default function Page({ params }) {
   const [data, setData] = useState([]);
   const fetchData = async () => {
     const { slug } = await params;
-    console.log(slug);
+    const res = await fetch("/files.json");
+    const files = await res.json();
+    const slugKey = files[slug];
+    slugKey.forEach((file) => {
+      setData((prevData) => [
+        ...prevData,
+        {
+          id: Math.random(),
+          image: `/images/Gallery/${slug}/${file}`,
+          height: 500,
+        },
+      ]);
+    });
   };
 
   useEffect(() => {
