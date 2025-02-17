@@ -1,45 +1,51 @@
 "use client";
 import CircularGallery from "@/components/CircularGallery";
+import { db } from "@/lib/firebase";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 export default function Gallery() {
-  const [folders, setFolders] = useState([
-    {
-      image: "/images/Gallery/ClubFair/c1.webp",
-      text: "Club Fair",
-    },
-    {
-      image: "/images/Gallery/EngineeringExcellence/e1.webp",
-      text: "Engineering Excellence",
-    },
-    {
-      image: "/images/Gallery/Hacktober/h1.webp",
-      text: "Hacktober",
-    },
-    {
-      image: "/images/Gallery/helloworld/hh11.webp",
-      text: "HelloWorld",
-    },
-    {
-      image: "/images/Gallery/research/r1.webp",
-      text: "Research",
-    },
-    {
-      image: "/images/Gallery/SIH/s1.webp",
-      text: "SIH",
-    },
-    {
-      image: "/images/Gallery/uiuxify/u1.webp",
-      text: "UiUxify",
-    },
-    {
-      image: "/images/Gallery/Web/w1.webp",
-      text: "Web",
-    },
-  ]);
+  const [loading, setLoading] = useState(false);
+  const [folders, setFolders] = useState([]);
+  async function fetchImages() {
+    setLoading(true);
+    try {
+      // Get all images from the "galleryImages" collection
+      const querySnapshot = await getDocs(collection(db, "galleryImages"));
+      const images = querySnapshot.docs.map((doc) => doc.data());
 
-  const [bind, setBind] = useState(2);
+      // Group images by their 'category' field
+      const grouped = images.reduce((acc, image) => {
+        const category = image.category;
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        acc[category].push(image);
+        return acc;
+      }, {});
 
+      console.log(grouped);
+      let finalArray = [];
+
+      // Correct iteration over the grouped object
+      Object.entries(grouped).forEach(([category, images]) => {
+        finalArray.push({
+          image: `https://ucarecdn.com/${images[0].imageId}/-/preview/750x1000/`, // Taking the first image from each category
+          text: category, // Category name
+        });
+      });
+
+      setFolders(finalArray);
+    } catch (error) {
+      console.error("Error fetching images: ", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchImages();
+  }, []);
   const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
   return (
