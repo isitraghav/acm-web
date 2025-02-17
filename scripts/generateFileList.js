@@ -8,7 +8,9 @@ const folders = fs
 
 const filesObj = {};
 for (const folder of folders) {
-  filesObj[folder] = fs.readdirSync(path.join(publicDir, folder));
+  filesObj[String(folder).toLowerCase()] = fs.readdirSync(
+    path.join(publicDir, folder),
+  );
 }
 
 fs.writeFileSync(
