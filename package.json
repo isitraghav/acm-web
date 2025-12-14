@@ -15,7 +15,7 @@
     "firebase": "^11.2.0",
     "framer-motion": "^12.0.5",
     "moment": "^2.30.1",
-    "next": "15.1.6",
+    "next": "15.1.11",
     "next13-progressbar": "^1.2.2",
     "ogl": "^1.0.11",
     "react": "^18.3.1",
